@@ -67,6 +67,62 @@
       color: var(--accent);
     }
 
+    /* ─── BURGER ─── */
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-dark);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: var(--grey-light);
+      border-top: 1px solid var(--grey-placeholder);
+      flex-direction: column;
+      padding: 8px 0;
+      z-index: 99;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      text-decoration: none;
+      color: var(--text-mid);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 14px 24px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .mobile-menu a:hover {
+      background: var(--grey-placeholder);
+      color: var(--accent);
+    }
+
     /* ─── HERO ─── */
     .hero {
       max-width: var(--max-width);
@@ -308,6 +364,8 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .burger { display: flex; }
       .hero { padding: 60px 24px; flex-direction: column; text-align: center; }
       .hero-avatar { width: 180px; height: 180px; }
       .team-inner, .posts { padding: 60px 24px; }
@@ -329,7 +387,18 @@
       <li><a href="#posts">Articles</a></li>
       <li><a href="#footer">Contact</a></li>
     </ul>
+    <button class="burger" id="burger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#hero" onclick="closeMenu()">Accueil</a>
+    <a href="#team" onclick="closeMenu()">Équipe</a>
+    <a href="#posts" onclick="closeMenu()">Articles</a>
+    <a href="#footer" onclick="closeMenu()">Contact</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero" id="hero">
@@ -461,6 +530,21 @@
   <div class="footer-bottom">
     © 2024 Mon Portfolio — Tous droits réservés
   </div>
+
+  <script>
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('mobile-menu');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+
+    function closeMenu() {
+      burger.classList.remove('open');
+      menu.classList.remove('open');
+    }
+  </script>
 
 </body>
 </html>
